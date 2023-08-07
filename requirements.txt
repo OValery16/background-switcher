@@ -1,0 +1,7 @@
+rembg
+openpyxl
+requests
+torch
+torchvision
+streamlit
+pillow
