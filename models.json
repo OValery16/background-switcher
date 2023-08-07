@@ -1,0 +1,7 @@
+{
+    "models": {
+        "big-lama": {
+            "url": "https://github.com/OValery16/models/releases/download/Add_big_lama/big-lama.pt"
+        }
+    }
+}
