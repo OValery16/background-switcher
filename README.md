@@ -49,3 +49,4 @@ After launching the app, you can upload two images using the left sidebar buttom
 
 ![App example3](./images/example4.png)
 
+If you like you like this project, feel free to leave a star. (it is my only reward ^^)
