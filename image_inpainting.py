@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 import torch
-from helper import get_model_weight, norm_img, load_jit_model, resize_max_size
+from helper import get_model_weight, norm_img, load_jit_model, resize_max_size, resize_min_size
 from typing import Tuple
 
 
@@ -67,7 +67,7 @@ class InpaintModel:
             value=0)
         binary_mask = cv2.copyMakeBorder(
             binary_mask, 0, padding[0], 0, padding[1], cv2.BORDER_CONSTANT,
-            value=0)
+            value=255)
         return original_image, binary_mask, resized_image_size
 
     def dilate_mask(self, binary_mask: np.ndarray) -> np.ndarray:
@@ -83,6 +83,11 @@ class InpaintModel:
         Modify the mask/image (padding/cropping) to adjust the final inpainted
         image size to the target size.
         """
+
+        # resize inputs to min output size
+        binary_mask, _= resize_min_size(binary_mask, min(output_size))
+        original_image, _= resize_min_size(original_image, min(output_size))
+
         original_image, binary_mask, original_size = self.pad_to_target_size(
             original_image, output_size, binary_mask)
 

@@ -40,6 +40,18 @@ def resize_max_size(
     else:
         return np_image, np_image.shape[:2]
 
+def resize_min_size(
+        np_image: np.ndarray, size_limit: int, interpolation=cv2.INTER_CUBIC
+) -> np.ndarray:
+    height, width = np_image.shape[:2]
+
+    ratio = size_limit / min(height, width)
+    new_width = int(width * ratio)
+    new_height = int(height * ratio)
+    resized_image = cv2.resize(
+        np_image, dsize=(new_width, new_height),
+        interpolation=interpolation)
+    return resized_image, (new_height, new_width)
 
 def get_model_weight(name: str, models_info: str = "models.json") -> str:
     with open(models_info, "r") as f:
